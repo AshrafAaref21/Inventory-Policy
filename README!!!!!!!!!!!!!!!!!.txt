@@ -14,6 +14,10 @@ We used Oracle ERP System to set up our base stock for each SKU accourding to ou
 The Code takes only the SKU code that got an inventory Alert, the New SKUs Cost&Price if changed, And The Inventory Stock Now... And we got this data from our ERP System.
 
 
+
+<<<It's an Snapshot in 12 Augest 2023>>>
+
+
 THANKS FOR READING...!
 
 
