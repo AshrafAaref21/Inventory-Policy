@@ -59,11 +59,17 @@ class Inventory_Policy(Full_Data):
         self.model.st_con = pyo.ConstraintList()
         for i in self.model.i:
             if self.opt_df.loc[i,'stock'] > 2 * self.opt_df.loc[i,'base_stock']:
-                self.model.st_con.add(expr = X[i] == 0)
+                pass
             else:
                 self.model.st_con.add(expr =
                                       X[i] + self.opt_df.loc[i,'stock'] >=
                                       self.opt_df.loc[i,'base_stock'] + self.opt_df.loc[i,'annual_demand']/50)
+
+        self.model.in_con = pyo.ConstraintList()
+        for i in self.model.i:
+            if self.opt_df.loc[i,'stock'] > 2 * self.opt_df.loc[i,'base_stock']:
+                self.model.st_con.add(expr = X[i] == 0)
+        
         # 2`) Stock` Constraint
         self.model.st2_con = pyo.ConstraintList()
         for i in self.model.i:
