@@ -65,10 +65,6 @@ class Inventory_Policy(Full_Data):
                                       X[i] + self.opt_df.loc[i,'stock'] >=
                                       self.opt_df.loc[i,'base_stock'] + self.opt_df.loc[i,'annual_demand']/50)
 
-        self.model.in_con = pyo.ConstraintList()
-        for i in self.model.i:
-            if self.opt_df.loc[i,'stock'] > 2 * self.opt_df.loc[i,'base_stock']:
-                self.model.st_con.add(expr = X[i] == 0)
         
         # 2`) Stock` Constraint
         self.model.st2_con = pyo.ConstraintList()
@@ -90,6 +86,13 @@ class Inventory_Policy(Full_Data):
                 self.model.dd_con.add(
                     expr = X[i] + self.opt_df.loc[i,'stock'] <= max(
                         self.opt_df.loc[i,'stock']+50,self.opt_df.loc[i,'base_stock'] + self.opt_df.loc[i,'order_quantity']))
+                
+                
+        # 4) Inventory Balance         
+        self.model.in_con = pyo.ConstraintList()
+        for i in self.model.i:
+            if self.opt_df.loc[i,'stock'] > 2 * self.opt_df.loc[i,'base_stock']:
+                self.model.st_con.add(expr = X[i] == 0)
         
         # 4) Minimum job Order Constraint        
         def min_order_constraint(model,i):
@@ -125,6 +128,12 @@ class Inventory_Policy(Full_Data):
     def releaseMinimumConstraint(self):
         """This Method Created to Release Weight Constraint"""
         self.model.del_component(self.model.jb_con)
+        
+    @property
+    def releaseInventoryBalanceConstraint(self):
+        """This Method Created to Release Weight Constraint"""
+        self.model.del_component(self.model.in_con)
+        
         
     def SetCarWeight(self,weight):
         """Car Weight Setter Method"""
