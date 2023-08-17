@@ -72,7 +72,9 @@ class Cleanning:
             df.loc[df_himax[df_himax.code.astype(str).str.contains('30421'+x)].index,'name'] = df_himax[
             df_himax.code.astype(str).str.contains('30421'+x)].iloc[-1,2]
 
+        
         df_corn_jambo = df[df.name.str.contains(r'.*(CORN)+.*(جامبو)+.*(5)+.*')]
+        
         df_corn_jambo_35 = df_corn_jambo[df_corn_jambo['name'].str.contains('35')]
         df.loc[df_corn_jambo_35.index,'code'] = df_corn_jambo_35.code.max()
         df.loc[df_corn_jambo_35.index,'name'] = df_corn_jambo_35.iloc[-1,2]
@@ -80,12 +82,6 @@ class Cleanning:
         df_corn_jambo_40 = df_corn_jambo[df_corn_jambo['name'].str.contains('40')]
         df.loc[df_corn_jambo_40.index,'code'] = df_corn_jambo_40.code.max()
         df.loc[df_corn_jambo_40.index,'name'] = df_corn_jambo_40.iloc[-1,2]
-        
-        
-#         df.loc[df[df.name.str.contains(r'.*(CORN)+.*(جامبو)+.*(5)+.*')].index,'code'] = df[
-#             df.name.str.contains(r'.*(CORN)+.*(جامبو)+.*(5)+.*')].code.max()
-#         df.loc[df[df.name.str.contains(r'.*(CORN)+.*(جامبو)+.*(5)+.*')].index,'name'] = df[
-#             df.name.str.contains(r'.*(CORN)+.*(جامبو)+.*(5)+.*')].iloc[-1,2]
         
         
         df.loc[df[df.name.str.contains(r'(30)+.*(جرين)+.*')].index,'code'] = df[
